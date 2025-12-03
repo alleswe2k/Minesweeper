@@ -1,1 +1,1 @@
-To playe just downlaod the "dist" folder and run the "main.exe" file
+To play the game just downlaod the "dist" folder and run the "main.exe" file
