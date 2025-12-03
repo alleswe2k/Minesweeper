@@ -11,7 +11,7 @@ clock = pygame.time.Clock()
 running = True
 game_state = "menu"
 
-music = pygame.mixer.music.load("syfy_cave.mp3")
+music = pygame.mixer.music.load("data/syfy_cave.mp3")
 pygame.mixer.music.play(-1)
 
 start_time = 0
@@ -40,7 +40,7 @@ def load_tiles_images(folder_path):
         # Load
         img = pygame.image.load(os.path.join(folder_path, filename)).convert_alpha()
 
-        img = pygame.transform.scale(img, (img.get_width()*3, img.get_height()*3))
+        img = pygame.transform.scale(img, (img.get_width()*2, img.get_height()*2))
 
 
         if key in images:
@@ -51,12 +51,12 @@ def load_tiles_images(folder_path):
     return images
 
 def setup_board(width, height, bombs):
-    base_x = int((screen_size[0] - (width * tile_size))/2)
-    base_y = int((screen_size[1] - (height * tile_size))/2)
+    base_x = (screen_size[0] - (width * tile_size))//2
+    base_y = (screen_size[1] - (height * tile_size))//2
     board = BombBoard(width, height, bombs, tile_size, base_x, base_y, images)
     return board
 
-images = load_tiles_images("sprites")
+images = load_tiles_images("data/sprites")
 tile_size = images[0].get_width()
 
 def handle_menu():
@@ -107,7 +107,7 @@ def handle_menu():
                 game_state = "playing"
 
             if hard_btn.collidepoint(x, y):
-                board = setup_board(30, 16, 99)
+                board = setup_board(21, 21, 99)
                 start_time = pygame.time.get_ticks()
                 game_state = "playing"
 
@@ -218,10 +218,12 @@ def handle_end():
             x, y = event.pos
             if menu_btn.collidepoint(x, y):
                 game_state = "menu"
+                camera.x = 0
+                camera.y = 0
+                camera.zoom = 1.0
                 start_time = 0
             if quit_btn.collidepoint(x, y):
                 running = False
-
 
 while running:
 
